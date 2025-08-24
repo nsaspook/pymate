@@ -9,6 +9,7 @@ In particular it has the following duties:
 - FBX (Battery Recharging)
 - AGS (Automatic Generator System)
 - FN-DC Net AmpHours charge float feature
+- Restart MX device
 
 
 If you are replacing the MATE with pyMATE, I recommend you implement the below features, or connect pyMATE as a 2nd mate.
@@ -60,3 +61,8 @@ Temperature Mapping: (CC[`4000`] : DC[`00f0`])
 Approximate formula:
 DegC = Round((-0.3576 * raw_temp) + 70.1)
 ```
+[4002] (RESTART)
+Value of 1 will restart the MX device
+C example: const uint16_t cmd_restart[] = {0x100, 0x03, 0x40, 0x02, 0x00, 0x01, 0x00, 0x46}; // restart command
+
+Useful for batteries with a BMS that stops all charging current to the battery, it sometimes goes to FLOAT and the charge controller stops sending power to the battery but the battery is still sending out current buring this condition.
